@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <h2 class="text-center mb-4 font-weight-light Titulo">Registrar un cliente</h2>
+
+    <div class="container bg-light">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-5 mx-auto">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Nuip:<br>
+                        <small>
+                            <small>(identificación)</small>
+                        </small>
+                    </label>
+                    <div class="col-sm-9">
+                        <div ng-app="miapp">
+                            <div ng-controller="clienteController">
+                                {{ form_widget(form.cedula , {'attr':{'class':'form-control', 'ng-blur':'search()'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Nombre:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.nombre , {'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Nota:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.nota , {'attr':{'class':'form-control', 'style':'height: 100px'}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 mx-auto">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Dirección:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.direccion , {'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Barrio:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.barrio , {'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Teléfono:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.fijo , {'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Celular:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.celular , {'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                {{ form_widget(form.Guardar , {'attr':{'class':' btn btn-success font-weight-bold mt-3'}}) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+        <hr>
+    </div>
+    <div class="container">
+        <div class="count">
+            <h5 class="font-weight-light">Total clientes registrados: <span class="font-weight-bold badge badge-pill badge-primary">{{ pagination.getTotalItemCount }}</span></h5>
+        </div>
+        <div class="table-responsive text-center">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                <th>{{ knp_pagination_sortable(pagination, 'Identificación', 'clientes.cedula') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Nombre', 'clientes.nombre') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Nota', 'clientes.nota') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Dirección', 'clientes.direccion') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Barrio', 'clientes.barrio') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Celular', 'clientes.celular') }}</th>
+                <th>Teléfono</th>
+
+                </thead>
+                <tbody>
+                {% for cliente in pagination %}
+                    <tr>
+                        <td><a href="{{ cliente.ruta }}">{{ cliente.cedula }}</a></td>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.nota }}</td>
+                        <td>{{ cliente.direccion }}</td>
+                        <td>{{ cliente.barrio }}</td>
+                        <td>{{ cliente.celular }}</td>
+                        <td>{{ cliente.fijo }}</td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block Scripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/clientes.js') }}"></script>
+{% endblock %}
+

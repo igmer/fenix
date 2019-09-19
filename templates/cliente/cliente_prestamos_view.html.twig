@@ -1,0 +1,209 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <h2 class="text-center mb-4 font-weight-light Titulo">Efectuar Préstamo</h2>
+
+    <div class="container bg-light">
+        {{ form_start(form) }}
+        <div ng-app="cliente_prestamos_app">
+            <div ng-controller="cliente_prestamos_Controller">
+                <div class="row bg-light border border-light rounded col-sm-12 mx-auto">
+                    <div class="col-md-9 mx-auto">
+                        <div class="form-group row mt-1">
+                            <label class="col-sm-3 col-form-label">Registrar préstamo a:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="estado" placeholder="estado préstamo"
+                                       readonly="true"
+                                       value="{{ cliente.nombre }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group row mt-4">
+                            <label class="col-sm-4 col-form-label">Valor préstamo:</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.valor_prestamo , {'attr':{'class':'form-control', 'ng-model':'prestamo','ng-change':'procesar()'}} ) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Modalidad de pago:</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.modo_pago , {'attr':{'class':'form-control','ng-model':'modo_pago','ng-change':'procesar()'}} ) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Días de pago:</label>
+                            <div class="col-sm-8">
+                                <select id="semanal" ng-hide="semanal" class="form-control" ng-model="semanasPago", ng-change="procesar()">
+                                    <option>1 semana</option>
+                                    <option>2 semanas</option>
+                                    <option>3 semanas</option>
+                                    <option>4 semanas</option>
+                                    <option>5 semanas</option>
+                                    <option>6 semanas</option>
+                                    <option>7 semanas</option>
+                                    <option>8 semanas</option>
+                                    <option>9 semanas</option>
+                                    <option>10 semanas</option>
+                                    <option>11 semanas</option>
+                                    <option>12 semanas</option>
+                                    <option>13 semanas</option>
+                                    <option>14 semanas</option>
+                                    <option>15 semanas</option>
+                                    <option>16 semanas</option>
+                                    <option>17 semanas</option>
+                                    <option>18 semanas</option>
+                                    <option>19 semanas</option>
+                                    <option>20 semanas</option>
+                                    <option>21 semanas</option>
+                                    <option>23 semanas</option>
+                                    <option>24 semanas</option>
+                                    <option>25 semanas</option>
+                                    <option>26 semanas</option>
+                                    <option>27 semanas</option>
+                                    <option>28 semanas</option>
+                                    <option>29 semanas</option>
+                                    <option>30 semanas</option>
+                                </select>
+
+                                <select id="quincenal" ng-hide="quincenal" class="form-control" ng-model="QuincenasPago", ng-change="procesar()" >
+                                    <option>1 Quincena</option>
+                                    <option>2 Quincenas</option>
+                                    <option>3 Quincenas</option>
+                                    <option>4 Quincenas</option>
+                                    <option>5 Quincenas</option>
+                                    <option>6 Quincenas</option>
+                                    <option>7 Quincenas</option>
+                                    <option>8 Quincenas</option>
+                                    <option>9 Quincenas</option>
+                                    <option>10 Quincenas</option>
+                                    <option>11 Quincenas</option>
+                                    <option>12 Quincenas</option>
+                                    <option>13 Quincenas</option>
+                                    <option>14 Quincenas</option>
+                                    <option>15 Quincenas</option>
+                                    <option>16 Quincenas</option>
+                                    <option>17 Quincenas</option>
+                                    <option>18 Quincenas</option>
+                                    <option>19 Quincenas</option>
+                                    <option>20 Quincenas</option>
+                                    <option>21 Quincenas</option>
+                                    <option>23 Quincenas</option>
+                                    <option>24 Quincenas</option>
+                                    <option>25 Quincenas</option>
+                                    <option>26 Quincenas</option>
+                                    <option>27 Quincenas</option>
+                                    <option>28 Quincenas</option>
+                                    <option>29 Quincenas</option>
+                                    <option>30 Quincenas</option>
+                                    </select>
+
+                                <select id="mensual" ng-hide="mensual" class="form-control" ng-model="MesesPago", ng-change="procesar()" >
+                                    <option>1 Mes</option>
+                                    <option>2 Meses</option>
+                                    <option>3 Meses</option>
+                                    <option>4 Meses</option>
+                                    <option>5 Meses</option>
+                                    <option>6 Meses</option>
+                                    <option>7 Meses</option>
+                                    <option>8 Meses</option>
+                                    <option>9 Meses</option>
+                                    <option>10 Meses</option>
+                                    <option>11 Meses</option>
+                                    <option>12 Meses</option>
+                                    <option>13 Meses</option>
+                                    <option>14 Meses</option>
+                                    <option>15 Meses</option>
+                                    <option>16 Meses</option>
+                                    <option>17 Meses</option>
+                                    <option>18 Meses</option>
+                                    <option>19 Meses</option>
+                                    <option>20 Meses</option>
+                                    <option>21 Meses</option>
+                                    <option>23 Meses</option>
+                                    <option>24 Meses</option>
+                                    <option>25 Meses</option>
+                                    <option>26 Meses</option>
+                                    <option>27 Meses</option>
+                                    <option>28 Meses</option>
+                                    <option>29 Meses</option>
+                                    <option>30 Meses</option>
+                                </select>
+
+                                {{ form_widget(form.dias_pago , {'attr':{'class':'form-control','ng-model':'dias_pago','ng-change':'procesar()', 'ng-hide':'diario'}} ) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Tasa de interés:</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.tasa_interes , {'attr':{'class':'form-control', 'ng-model':'tasa_interes','ng-change':'procesar()'}} ) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Cobrador:</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.cobrador , {'attr':{'class':'form-control'}} ) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Ruta:</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.ruta , {'attr':{'class':'form-control'}} ) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group row mt-4">
+                            <label class="col-sm-4 col-form-label">Fecha realización:</label>
+                            <div class="col-sm-8">
+                            <input type="text" class="form-control" id="fecharealiz" placeholder="fecha realización"
+                                   readonly="true"
+                                   value="{{ "now"|date("m/d/Y") }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Total de cuotas:</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.total_cuotas , {'attr':{'class':'form-control', 'ng-model':'total_cuotas', 'readonly':'true'}} ) }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Pago por cuota:</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.precio_cuota , {'attr':{'class':'form-control', 'ng-model':'pago_cuota', 'readonly':'true'}} ) }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Total:<br>
+                                <small>
+                                    <small>(con tasa de interés):</small>
+                                </small>
+                            </label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.total , {'attr':{'class':'form-control', 'ng-model':'total', 'readonly':'true'}} ) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-xs-12 text-center mt-3 mb-4">
+                        {{ form_widget(form.EfectuarPrestamo , {'attr':{'class':'btn btn-success'}} ) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+{% block Scripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/cliente_prestamos.js') }}"></script>
+
+{% endblock %}

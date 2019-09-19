@@ -1,0 +1,212 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <h2 class="text-center mb-1 font-weight-light Titulo" xmlns="http://www.w3.org/1999/html">Detalle Cobrador<br>
+        <small><small><a href="{{ path('cobros_cobrador',{'id_cobrador':cobrador.cedula}) }}">Cobros de {{ cobrador.nombre }}</a></small></small>
+        {#<small><small>Cobrado Hoy: ${{ CobroDia }}</small></small>#}
+    </h2>
+
+    <div class="container">
+        <div class="row bg-light border border-light rounded col-sm-10 mx-auto">
+            <div class="col-md-4">
+                <h5 class="text-center font-weight-bold mt-3">Datos personales</h5>
+                <div class="form-group mt-4">
+                    <label for="id">Identificación</label>
+                    <input type="text" class="form-control" id="id" placeholder="nuip" readonly="true"
+                           value="{{ cobrador.cedula }}">
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="nombre" readonly="true"
+                           value="{{ cobrador.nombre }}">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="text-center font-weight-bold mt-3">Ubicación y contacto</h5>
+                <div class="form-group mt-4">
+                    <label for="dir">Dirección</label>
+                    <input type="text" class="form-control" id="dir" placeholder="direccion" readonly="true"
+                           value="{{ cobrador.direccion }}">
+                </div>
+                <div class="form-group">
+                    <label for="bar">Barrio</label>
+                    <input type="text" class="form-control" id="bar" placeholder="barrio" readonly="true"
+                           value="{{ cobrador.barrio }}">
+                </div>
+                <div class="form-group">
+                    <label for="fijo">Teléfono fijo</label>
+                    <input type="text" class="form-control" id="fijo" placeholder="tel fijo" readonly="true"
+                           value="{{ cobrador.fijo }}">
+                </div>
+                <div class="form-group">
+                    <label for="cel">Celular</label>
+                    <input type="text" class="form-control" id="cel" placeholder="celular" readonly="true"
+                           value="{{ cobrador.celular }}">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="text-center font-weight-bold mt-3">Detalles de acceso</h5>
+                <div class="form-group mt-4">
+                    <label for="fijo">Email</label>
+                    <input type="text" class="form-control" id="fijo" placeholder="tel fijo" readonly="true"
+                           value="{{ cobrador.email }}">
+                </div>
+                <div class="form-group">
+                    <label for="cel">Nombre de usuario</label>
+                    <input type="text" class="form-control" id="cel" placeholder="celular" readonly="true"
+                           value="{{ user }}">
+                </div>
+                <div class="form-group">
+                    <label for="id">Cedula
+                        <small id="idHelp" class="text-muted">(Password)</small>
+                    </label>
+                    <input type="text" class="form-control" id="id" placeholder="nuip" readonly="true"
+                           value="{{ cobrador.cedula }}">
+                </div>
+            </div>
+
+            <!-- Button trigger modal -->
+            <div class="form-group row mx-auto">
+                <div class="col-sm-6 col-xs-12 text-center mt-3 mb-4">
+                    <button type="button" class="btn btn-secondary font-weight-bold" data-toggle="modal"
+                            data-target="#exampleModalLong">
+                        Editar cobrador
+                    </button>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><h3 class="font-weight-light">Edición
+                                Cobrador</h3></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ form_start(form) }}
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nombre</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.nombre,  {'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Dirección</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.direccion,  {'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Barrio</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.barrio,  {'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Fijo</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.fijo,  {'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Celular</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.celular,  {'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row text-center">
+                            <div class="col-12">
+                                {{ form_widget(form.Guardar,  {'attr':{'class':'btn btn-success'}}) }}
+                            </div>
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="table-responsive text-center">
+            {% if is_granted('ROLE_ADMIN') %}
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                    <th>Consecutivo prestamo</th>
+                    <th>A nombre de</th>
+                    <th>Ruta Prestamo</th>
+                    <th>Estado</th>
+                    <th>Valos prestamo</th>
+                    <th>Modo de pago</th>
+                    </thead>
+                    <tbody>
+                    {% for prestamo in prestamosCobrador %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('prestamo_detail',{'prestamo_ruta':prestamo.url}) }}">{{ prestamo.id }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('cliente_detail',{'ruta':prestamo.cliente.ruta}) }}">{{ prestamo.cliente.nombre }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('detalle_ruta', {'ruta_id':prestamo.ruta.id}) }}">{{ prestamo.ruta.zonacobro }}</a>
+                            </td>
+                            <td>{{ prestamo.estado }}</td>
+                            <td>{{ prestamo.valorprestamo }}</td>
+                            <td>{{ prestamo.modopago }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            {% elseif is_granted('ROLE_COBRADOR') %}
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                    <th>Consecutivo prestamo</th>
+                    <th>A nombre de</th>
+                    <th>Ruta Prestamo</th>
+                    <th>Estado</th>
+                    <th>Valos prestamo</th>
+                    <th>Modo de pago</th>
+                    </thead>
+                    <tbody>
+                    {% for prestamo in cobrador.prestamo %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('prestamo_detail',{'prestamo_ruta':prestamo.url}) }}">{{ prestamo.id }}</a>
+                            </td>
+                            <td>
+                                {{ prestamo.cliente.nombre }}
+                            </td>
+                            <td>{{ prestamo.ruta.zonacobro }}</td>
+                            <td>{{ prestamo.estado }}</td>
+                            <td>{{ prestamo.valorprestamo }}</td>
+                            <td>{{ prestamo.modopago }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

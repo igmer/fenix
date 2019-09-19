@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+    {% block estilos %}
+        {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('css/angucomplete-alt.css') }}">
+
+
+    {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h2 class="text-center mb-1 font-weight-light Titulo">Realizar Préstamo</h2>
+    <div class="container">
+        <div class="row bg-light border border-light rounded col-sm-7 mx-auto">
+            <div class="col-md-12">
+                <div class="form-group mt-4">
+                    <label for="formGroupPrest">Buscar cliente:</label>
+                    <div ng-app="autocomplete" ng-controller="ngAutoCompleteController">
+                        <angucomplete-alt id="ex1" ng-keyup="buscar()"
+                                          placeholder="Buscar por nombre"
+                                          pause="100"
+                                          selected-object="afterSelected"
+                                          local-data="names"
+                                          local-search="localSearch"
+                                          search-fields="name"
+                                          title-field="name"
+                                          minlength="0"
+                                          input-class="form-control form-control-small"
+                        >
+                        </angucomplete-alt>
+
+                        <div class="border border-light rounded table-secondary text-dark font-weight-light text-justify px-2"
+                             id="buscando">
+                        </div>
+
+                        <div class="col-md-12 col-xs-12 text-center mt-3 mb-4">
+                            <button type="button" class="btn btn-success font-weight-bold" ng-click="Redireccionar()">Generar Préstamo
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block Scripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ asset('js/angucomplete-alt.js') }}"></script>
+    <script src="{{ asset('js/prestamos_create.js') }}"></script>
+
+{% endblock %}

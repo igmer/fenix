@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+
+        {% set i = 0 %}
+        {% set longitud = Cobros | length %}
+        {% set ultimoValor = 0 %}
+        <div class=" row">
+            <div class="col-md-3"><h4>Fecha</h4></div>
+            <div class="col-md-3"><h4>Identificación Cobrador</h4></div>
+            <div class="col-md-3"><h4>Identificación Cuota</h4></div>
+            <div class="col-md-3"><h4>Valor Cuota</h4></div>
+            <hr>
+            {% for cobro in Cobros %}
+                {% if i == 0 %}
+                    {% set FechaComparativa = cobro.fechaPago %}
+                    {% set Valor =  0 %}
+                {% endif %}
+                {% if FechaComparativa == cobro.fechaPago %}
+                    {% set Valor = Valor+cobro.valorCuota %}
+                    <div class="col-md-3">{{ cobro.fechaPago  | localizeddate('long','none', 'es_CO', null, "d 'de' MMMM 'de' Y"  ) }}</div>
+                    <div class="col-md-3">{{ cobro.cobradorId }}</div>
+                    <div class="col-md-3">COT-{{ cobro.cuotaId }}</div>
+                    <div class="col-md-3">{{ cobro.valorCuota }}</div>
+                    <hr/>
+                {% else %}
+                    <div class="col-md-12">
+                        <h5> Total cobros del día {{ FechaComparativa | localizeddate('long','none', 'es_CO', null, "d 'de' MMMM 'de' Y"  ) }}: {{ Valor }}</h5>
+                        <hr>
+                    </div>
+
+                    <div class="col-md-3">{{ cobro.fechaPago | date }}</div>
+                    <div class="col-md-3">{{ cobro.cobradorId }}</div>
+                    <div class="col-md-3">COT-{{ cobro.cuotaId }}</div>
+                    <div class="col-md-3">{{ cobro.valorCuota }}</div>
+
+
+                    {% set FechaComparativa = cobro.fechaPago %}
+                    {% set Valor = cobro.valorCuota %}
+                {% endif %}
+                {% set i = i+1 %}
+                {% set ultimoValor = Valor %}
+            {% endfor %}
+            <div class="col-md-12">
+                <h5> Total cobros del día {{ ultimoValor }} </h5>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

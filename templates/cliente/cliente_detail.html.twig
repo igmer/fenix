@@ -1,0 +1,279 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <h2 class="text-center mb-1 font-weight-light Titulo">Detalle Cliente</h2>
+
+    <div class="container">
+        <div class="row bg-light border border-light rounded col-sm-10 mx-auto">
+            <div class="col-md-4">
+                <h5 class="text-center font-weight-bold mt-3">Datos personales</h5>
+                <div class="form-group mt-4">
+                    <label for="id">Identificación</label>
+                    <input type="text" class="form-control" id="id" placeholder="nuip" readonly="true"
+                           value="{{ cliente.cedula }}">
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="nombre" readonly="true"
+                           value="{{ cliente.nombre }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="nota">Nota
+                        <small id="notaHelp" class="text-muted">(Descripción)</small>
+                    </label>
+                    <textarea type="text" class="form-control" id="nota" placeholder="{{ cliente.nota }}"
+                              readonly="true" value=""></textarea>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h5 class="text-center font-weight-bold mt-3">Ubicación</h5>
+                <div class="form-group mt-4">
+                    <label for="dir">Dirección</label>
+                    <input type="text" class="form-control" id="dir" placeholder="direccion" readonly="true"
+                           value="{{ cliente.direccion }}">
+                </div>
+                <div class="form-group">
+                    <label for="bar">Barrio</label>
+                    <input type="text" class="form-control" id="bar" placeholder="barrio" readonly="true"
+                           value="{{ cliente.barrio }}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h5 class="text-center font-weight-bold mt-3">Contacto</h5>
+                <div class="form-group mt-4">
+                    <label for="fijo">Teléfono fijo</label>
+                    <input type="text" class="form-control" id="fijo" placeholder="tel fijo" readonly="true"
+                           value="{{ cliente.fijo }}">
+                </div>
+                <div class="form-group">
+                    <label for="cel">Celular</label>
+                    <input type="text" class="form-control" id="cel" placeholder="celular" readonly="true"
+                           value="{{ cliente.celular }}">
+                </div>
+            </div>
+            {% if app.user %}
+                {% if app.user.userEstadp == 0 or app.user.userEstadp == 1 %}
+
+                    <div class="form-group row mx-auto">
+                        <div class="col-sm-6 col-xs-12 text-center mt-3 mb-4">
+                            <button type="button" class="btn btn-secondary font-weight-bold" data-toggle="modal"
+                                    data-target="#edit">Editar
+                                Cliente
+                            </button>
+                        </div>
+                        <div class="col-sm-6 col-xs-12 text-center mt-3 mb-4">
+                            <button type="button" class="btn btn-success font-weight-bold"
+                                    onclick="redireccionar_prestamo('{{ cliente.ruta }}')">Nuevo
+                                Préstamo
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+        </div>
+
+        {#<div class="row">#}
+
+        {#</div>#}
+
+        <!-- Modal -->
+        <div id="edit" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><h3 class="font-weight-light">Edición Cliente</h3></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            {{ form_start(form) }}
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Cédula</label>
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.cedula , {'attr':{'class':'form-control'}} ) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Nombre</label>
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.nombre , {'attr':{'class':'form-control'}} ) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Nota</label>
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.nota , {'attr':{'class':'form-control'}} ) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Direccion</label>
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.direccion , {'attr':{'class':'form-control'}} ) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Barrio</label>
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.barrio , {'attr':{'class':'form-control'}} ) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Fijo</label>
+
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.fijo , {'attr':{'class':'form-control'}} ) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Celular</label>
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.celular , {'attr':{'class':'form-control'}} ) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 text-center">
+                                    {{ form_widget(form.Guardar , {'attr':{'class':'btn btn-success'}} ) }}                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="table-responsive text-center">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+
+                <th>Valor Prestado</th>
+                <th>Estado</th>
+                <th>Modo de pago</th>
+                <th>Tasa de interés</th>
+                <th>Días de pago</th>
+                <th>Ruta</th>
+                <th>Total pagado</th>
+                <th>Cobrador</th>
+                <th>Acción</th>
+                </thead>
+                {% for prestamo in prestamos %}
+                    <tr>
+                        <td>
+                            {{ prestamo.valorprestamo }}
+                            {% if app.user.userEstadp == 0 or app.user.userEstadp == 1 %}
+                                <hr>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#exampleModalLong" onclick="obtenerRuta('{{ prestamo.url }}')">
+                                    Editar Fecha
+                                </button>
+                            {% endif %}
+                        </td>
+                        <td>{{ prestamo.estado }}</td>
+                        <td>{{ prestamo.modopago }}</td>
+                        <td>{{ prestamo.tasainteres }}</td>
+                        <td>{{ prestamo.diaspago }}</td>
+                        <td>{{ prestamo.ruta.zonacobro }}</td>
+                        <td>{{ prestamo.pagado }}</td>
+                        <td>{{ prestamo.cobrador.nombre }}</td>
+
+                        <td>
+
+                                <a href="{{ path('prestamo_detail',{'prestamo_ruta':prestamo.url}) }}">Ver más</a>
+                            {% if app.user.userEstadp == 0 or app.user.userEstadp == 1 %}
+                                <hr/>
+                                <button class="btn btn-danger"
+                                        onclick="eliminarPrestamo('{{ prestamo.url }}', '{{ cliente.ruta }}')">
+                                    Eliminar
+                                </button>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body ">
+                    <input class="form-control" id="fecha" type="date"/>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="cambiarFecha()">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+{% block Scripts %}
+    {{ parent() }}
+
+    <script>
+        var ruta;
+
+        function redireccionar_prestamo(ruta) {
+            window.location.href = "{{ path('crear_prestamo_cliente',{'ruta_cliente':cliente.ruta}) }}";
+        }
+
+        function eliminarPrestamo(prestamo_ruta, ruta) {
+            if (confirm("¿Realmente desea eliminar este prestamo?")) {
+                alertify.success('Eliminando, Espere por favor.')
+                var url = Routing.generate('EliminarPrestamo', {'prestamo_ruta': prestamo_ruta, 'ruta_cliente': ruta});
+                window.location.href = url;
+            } else {
+                alertify.error('Cancelado')
+            }
+        }
+
+        function obtenerRuta(prestamoRuta) {
+            ruta = prestamoRuta;
+        }
+
+        function cambiarFecha() {
+            var fecha = $('#fecha').val();
+            if (fecha) {
+                $.ajax({
+                    type: 'POST',
+                    url: Routing.generate('cambiarFecha'),
+                    data: ({RutaPrestamo: ruta, fecha: fecha}),
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data['Validacion']);
+                        var Redireccion = Routing.generate('prestamo_detail', {'prestamo_ruta': ruta})
+                        window.location.href = Redireccion;
+                    }
+                })
+            } else {
+                alert("Seleccione una fecha valida");
+            }
+
+
+        }
+    </script>
+{% endblock %}

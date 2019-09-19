@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <h2 class="text-center mb-1 font-weight-light Titulo">Resultados de búsqueda</h2>
+    <div class="container">
+        <div class="table-responsive text-center">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+
+                <th>Identificación</th>
+                <th>Nombre</th>
+                </thead>
+                {% for cliente in clientes %}
+                    <tr>
+                        <td><a href="{{ path('cliente_detail',{'ruta':cliente.ruta}) }}">{{ cliente.id }}</a></td>
+                        <td>{{ cliente.nombre }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

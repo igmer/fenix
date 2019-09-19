@@ -1,0 +1,17 @@
+{#{% extends "@FOSUser/layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="banner-full" style="background-image: url('https://mgcreativedesign.files.wordpress.com/2014/11/website-design-background.png')">
+        {{ include('@FOSUser/Security/login_content.html.twig') }}
+    </div>
+{% endblock fos_user_content %}#}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    {#<div class="banner-full" style="background-image: url('https://mgcreativedesign.files.wordpress.com/2014/11/website-design-background.png')">#}
+        {{ include('@FOSUser/Security/login_content.html.twig') }}
+    {#</div>#}
+
+{% endblock %}

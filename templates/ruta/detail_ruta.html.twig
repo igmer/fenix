@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <h2 class="text-center mb-1 font-weight-light Titulo">Detalle Ruta</h2>
+
+    <div class="container">
+        <div class="row bg-light border border-light rounded col-sm-5 mx-auto">
+            <div class="col-md-12">
+                <div class="form-group mt-4">
+                    <label for="zone">Zona cobro</label>
+                    <input type="text" class="form-control" id="zone" placeholder="zona" readonly="true"
+                           value="{{ ruta.zonacobro }}">
+                </div>
+                <div class="form-group">
+                    <label for="nombre_socio">Nombre socio</label>
+                    <input type="text" class="form-control" id="nombre_socio" placeholder="nombre socio" readonly="true"
+                           value="{{ ruta.nombresocio }}">
+                </div>
+                <div class="form-group">
+                    <label for="cuota">Cuota</label>
+                    <input type="text" class="form-control" id="cuota" placeholder="cuota" readonly="true"
+                           value=" {{ ruta.cuota }}">
+                </div>
+            </div>
+
+            <!-- Button trigger modal -->
+            <div class="form-group row mx-auto">
+                <div class="col-sm-6 col-xs-12 text-center mt-3 mb-4">
+                    <button type="button" class="btn btn-secondary font-weight-bold" data-toggle="modal"
+                            data-target="#exampleModalLong">
+                        Editar Ruta
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLongTitle"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><h3 class="font-weight-light">Edición Ruta</h3></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ form_start(form) }}
+                        <div class="form-group row">
+                            <label for="formGroupExampleInput" class="col-sm-4 col-form-label">Zona de cobro:</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.zona_cobro , {'attr':{'class':'form-control'}} ) }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="formGroupExampleInput" class="col-sm-4 col-form-label">Nombre de socio:</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.nombre_socio , {'attr':{'class':'form-control'}} ) }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="formGroupExampleInput" class="col-sm-4 col-form-label">Cuota:</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.cuota , {'attr':{'class':'form-control'}} ) }}
+                            </div>
+                        </div>
+
+                        <div class="text-center ">
+                            <div class="col-12">
+                                {{ form_widget(form.Guardar , {'attr':{'class':'btn btn-success '}} ) }}
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="table-responsive text-center">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+
+                <th>#</th>
+                <th>Cliente</th>
+                <th>Valor prestamo</th>
+                <th>Estado</th>
+                </thead>
+                <tbody>
+                {% for prestamo in prestamos %}
+                    <tr>
+                        <td><a href="{{ path('prestamo_detail',{'prestamo_ruta':prestamo.url}) }}">{{ prestamo.id }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('cliente_detail',{'ruta':prestamo.cliente.ruta}) }}">{{ prestamo.cliente.nombre }}</a>
+                        </td>
+                        <td>{{ prestamo.valorprestamo }}</td>
+                        <td>{{ prestamo.estado }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

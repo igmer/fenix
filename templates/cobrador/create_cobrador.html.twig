@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <h2 class="text-center mb-4 font-weight-light Titulo">Registrar un cobrador</h2>
+
+    <div class="container bg-light">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <h4> Datos del cobrador</h4>
+                <div class="form-group row">
+                    <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Cédula:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.cedula , {'attr':{'class':'form-control'}} ) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Nombre:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.nombre , {'attr':{'class':'form-control'}} ) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Dirección:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.direccion , {'attr':{'class':'form-control'}} ) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Barrio:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.barrio , {'attr':{'class':'form-control'}} ) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Fijo:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.fijo , {'attr':{'class':'form-control'}} ) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Celular:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.celular , {'attr':{'class':'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mx-auto">
+                <h4>Datos de inicio de sesión</h4>
+                <div class="form-group row">
+                    <label for="formGroupExampleInput" class="col-sm-6 col-form-label">Nombre de usuario:</label>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.username , {'attr':{'class':'form-control'}} ) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="formGroupExampleInput" class="col-sm-3 col-form-label">Email:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.email , {'attr':{'class':'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                {{ form_widget(form.guardar , {'attr':{'class':'btn btn-success font-weight-bold mt-3'}} ) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+        <hr>
+    </div>
+
+    <div class="container">
+        <div class="count">
+            <h5 class="font-weight-light">Total cobradores registrados: <span
+                        class="font-weight-bold badge badge-pill badge-primary">{{ pagination.getTotalItemCount }}</span>
+            </h5>
+        </div>
+        <div class="table-responsive text-center">
+            <table class="table table-bordered table-hover table-light">
+                <thead class="thead-light">
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Barrio</th>
+                <th>Fijo</th>
+                <th>Celular</th>
+                </thead>
+                <tbody>
+                {% for cobrador in pagination %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('detalle_cobrador',{'ruta_cobrador':cobrador.ruta}) }}">{{ cobrador.cedula }}</a>
+                        </td>
+                        <td>{{ cobrador.nombre }}</td>
+                        <td>{{ cobrador.direccion }}</td>
+                        <td>{{ cobrador.barrio }}</td>
+                        <td>{{ cobrador.fijo }}</td>
+                        <td>{{ cobrador.celular }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

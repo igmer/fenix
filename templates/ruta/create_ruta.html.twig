@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <h2 class="text-center mb-4 font-weight-light Titulo">Registrar una ruta</h2>
+
+    <div class="container bg-light">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-7 mx-auto">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Zona de cobro:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.zona_cobro , {'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Nombre del socio:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.nombre_socio , {'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Cuota:</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.cuota , {'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                {{ form_widget(form.RegistrarRuta , {'attr':{'class':'btn btn-success font-weight-bold mt-3'}}) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+        <hr>
+    </div>
+
+    <div class="container">
+        <div class="table-responsive text-center">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                <th>Zona de cobro</th>
+                <th>Nombre del socio</th>
+                <th>Cuota</th>
+                </thead>
+                <tbody>
+                {% for ruta in pagination %}
+                    <tr>
+                        <td><a href="{{ path('detalle_ruta',{'ruta_id':ruta.id}) }}">{{ ruta.zonacobro }}</td>
+                        <td>{{ ruta.nombresocio }}</td>
+                        <td>{{ ruta.cuota }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

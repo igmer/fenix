@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h4>Clientes</h4>
+                <h5><span class="badge badge-pill badge-secondary   ">{{ cantidadClientes }}</span></h5>
+            </div>
+            <div class="col-md-4 text-center">
+                <h4>Cobradores</h4>
+                <h5><span class="badge badge-pill badge-dark">{{ cantidadCobradores }}</h5>
+            </div>
+            <div class="col-md-4 text-center">
+                <h4>Préstamos</h4>
+                <h5><span class="badge badge-pill badge-warning">{{ cantidadPrestamos }}</h5>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6 table-responsive text-center">
+                <h4>Cobros {{ "now"|localizeddate('long','none', 'es_CO', null, "MMMM 'de' Y"  ) }}</h4>
+                <table class="table table-hover table-light">
+                    <thead class="thead-light">
+                    <th>Fecha de pago</th>
+                    <th>Cliente</th>
+                    <th>Estado</th>
+                    <th>Valor</th>
+                    </thead>
+                    <tbody>
+                    {% for cuota in cuotas %}
+                        {% if cuota.prestamo.alive == 0 and cuota.prestamo.cliente.user.id == app.user.id %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('prestamo_detail',{'prestamo_ruta': cuota.prestamo.url}) }}">{{ cuota.fechapago|localizeddate('long','none', 'es_CO', null, "d 'de' MMMM 'de' Y"  ) }}</a>
+                                </td>
+                                <td>{{ cuota.prestamo.cliente.nombre }}</td>
+                                <td>
+                                    {% if fecha > cuota.fechapago and cuota.estado != 'En mora' and cuota.prestamo.cliente.user.id == app.user.id %}
+                                        <div class="btn-warning rounded p-2">
+                                            Fecha de pago atrasada
+                                        </div>
+                                    {% elseif cuota.estado == 'En mora' and cuota.prestamo.cliente.user.id == app.user.id %}
+                                        <div class="btn-danger rounded p-2">
+                                            {{ cuota.estado }}
+                                        </div>
+                                    {% else %}
+                                        <div class="btn-success rounded p-2">
+                                            {{ cuota.estado }}
+                                        </div>
+                                    {% endif %}
+                                </td>
+                                <td>{{ cuota.saldo }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6 table-responsive text-center">
+                <h4>Mis préstamos</h4>
+                <table class="table table-hover table-light">
+                    <thead class="thead-light">
+                    <th>Cliente</th>
+                    <th>Ruta</th>
+                    <th>Cobrador</th>
+                    <th>Total</th>
+                    </thead>
+                    <tbody>
+                    {% for prestamo in prestamos %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('cliente_detail',{'ruta':prestamo.cliente.ruta}) }}">{{ prestamo.cliente.nombre }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('detalle_ruta',{'ruta_id':prestamo.ruta.id}) }}">{{ prestamo.ruta.zonacobro }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('detalle_cobrador',{'ruta_cobrador':prestamo.cobrador.ruta}) }}">{{ prestamo.cobrador.nombre }}</a>
+                            </td>
+                            <td>${{ prestamo.total }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

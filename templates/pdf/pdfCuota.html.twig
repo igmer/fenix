@@ -1,0 +1,70 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Recibo de pago</title>
+</head>
+<body>
+<h1 style="text-align: center">Recibo de pago</h1>
+<p align="justify" style="font-size: xx-large">
+    Recibo generado el día: {{ "now"|localizeddate('long','none', 'es_CO', null, "d 'de' MMMM 'de' Y"  ) }} como
+    constancía de pago por parte de
+    cliente {{ prestamo.cliente.nombre }}
+    identificado con el número de cedula: {{ prestamo.cliente.cedula }} de la cuota: {{ cuota.id }}
+</p>
+<p align="justify" style="font-size:xx-large; ">
+    A continuación se detallan los detalles del prestamo:
+</p>
+<table style="font-size:x-large; ">
+    <thead style="border: 1px solid black">
+    <th style="border: 1px solid black">Cobrador</th>
+    <th style="border: 1px solid black">Valor prestamo</th>
+    <th style="border: 1px solid black">Tasa Interés</th>
+    <th style="border: 1px solid black">Total a pagar</th>
+    <th style="border: 1px solid black">Total pagado</th>
+    <th style="border: 1px solid black">Fecha de realización</th>
+    </thead>
+    <tr>
+        <td style="border: 1px solid black">{{ prestamo.cobrador.nombre }}</td>
+        <td style="border: 1px solid black">{{ prestamo.valorprestamo }}</td>
+        <td style="border: 1px solid black">{{ prestamo.tasainteres }}</td>
+        <td style="border: 1px solid black">{{ prestamo.total }}</td>
+        <td style="border: 1px solid black">{{ prestamo.pagado }}</td>
+        <td style="border: 1px solid black">{{ prestamo.fechaprestamo | localizeddate('long','none', 'es_CO', null, "d 'de' MMMM 'de' Y"  ) }}</td>
+    </tr>
+</table>
+<p style="font-size: xx-large">Valor total cuota: {{ cuota.saldo }}</p>
+<p style="font-size: xx-large">El estado ACTUAL de la cuota {{ cuota.id }} es: {{ cuota.estado }}</p>
+<div style="margin-top: 40%; ">
+    <table style="font-size:x-large; " >
+        <tr style="padding-right: 3%; margin-bottom: 5%">
+            <td>Cobrador</td>
+            <td>Cliente</td>
+        </tr>
+        <tr style="padding-right: 3%">
+            <td style="padding-right: 5%">___________________________________</td>
+            <td>___________________________________</td>
+        </tr>
+        <tr style="padding-right: 3%">
+            <td>
+                <small>Firma</small>
+            </td>
+            <td>
+                <small>Firma</small>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<footer>
+    <p align="center" style="font-size:medium; margin-top: 20%">
+        Documento generado automaticamente por el sistema de gestion de prestamos Fenix.
+        Favor conservar este recibo como constancia de pago hasta finalizar monto pagado de la deuda
+    </p>
+    <p align="center" style="font-size:medium;">© 2018 Proyecto Fenix. Republica Dominicana.</p>
+    <p align="center" style="font-size:medium;">Todos los derechos Reservados.</p>
+</footer>
+
+
+</body>
+</html>

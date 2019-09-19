@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es-419">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Fenix{% endblock %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/f.png') }}" />
+    {% block estilos %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/themes/alertify.core.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/themes/alertify.default.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    {% endblock %}
+</head>
+{#<body ng-init="Creadores = 'Diego Bastidas'" n style="background-image: url({{ asset('img/fondo.jpg') }});">#}
+{% block body %}
+
+
+    {% if app.user %}
+        {% if app.user.userEstadp == 0 %}
+            {#<div class="animated bounce">#}
+            <div class="container">
+
+                <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+                    <div class="container">
+                        <a class="navbar navbar-brand" href="{{ path('index') }}">
+                            <span class="icon-home fsz1"></span> Inicio
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#Barra"
+                                aria-controls="Barra" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="Barra">
+                            <ul class="navbar-nav mr-auto"> {#ml-auto text-center#}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('cliente') }}">
+                                        <span class="icon-users fsz1" aria-hidden="true"></span><strong>
+                                            Clientes</strong></a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('cobrador') }}">
+                                <span class="icon-money-dollars fsz3"
+                                      aria-hidden="true"></span><strong> Cobradores</strong></a>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="icon-prestamistas fsz3" aria-hidden="true"></span>
+                                        <strong> Préstamos</strong></a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="{{ path('crear_prestamo') }}"><span
+                                                    class="icon-coin-dollar fsz1"></span>
+                                            <strong> Crear Préstamo</strong></a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('ruta') }}">
+                                        <span class="icon-location fsz1" aria-hidden="true"></span>
+                                        <strong> Rutas</strong>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('administrador') }}">
+                                        <span class="fa fa-user-plus" aria-hidden="true"></span>
+                                        <strong> Administradores</strong>
+                                    </a>
+
+                                </li>
+
+                                {# <li class="nav-item">
+                                 <a class="nav-link" href="#">
+                                     <span class="icon-report fsz1"
+                                   aria-hidden="true"></span><strong> Reportes</strong></a>
+                                 </li>#}
+                            </ul>
+
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <div class="input-group">
+                                        <input id="infoCliente" class="form-control" type="text"
+                                               placeholder="Buscar clientes: Id, Nombre" onkeypress="runScript(event)">
+                                        <span class="input-group-btn">
+                                    <button id="buscarclientes" class="btn btn-secondary" type="button" value="Buscar">
+                                        <span class="icon-search fsz1"></span>
+                                    </button>
+                                </span>
+                                    </div>
+                                </li>
+
+                                {#<li class="dividerVertical">
+                                </li>#}
+
+                                <li class="nav-item dropdown marginLastNavbarItem">
+                                    <a class="nav-link dropdown-toggle" href="#" id="logoutDropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="icon-exit fsz1" aria-hidden="true"></span>
+                                        <strong></strong></a>
+                                    <div class="dropdown-menu" aria-labelledby="logoutDropdown">
+                                        <a class="dropdown-item" href="#"><span class="icon-money-coins fsz1"></span>
+                                            <strong>{{ app.user.username }}</strong>
+                                            <br>
+                                            <small>Últ Sesión: <br/>
+                                                {{ app.user.lastLogin|localizeddate('long','none', 'es_CO', null, "d 'de' MMMM 'de' Y"  ) }}
+                                                <br/>
+                                                Rol: Usuario Superior
+                                            </small>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('Salir') }}"></span>
+                                            <strong>Salir</strong></a>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                            {#<div class="form-inline my-2 my-lg-0">
+                                <input id="infoCliente" class="form-control mr-sm-2" type="text" placeholder="Buscar clientes: Id, Nombre" onkeypress="runScript(event)">
+                                <input id="buscarclientes" class="btn btn-outline-success my-2 my-sm-0" type="button" value="Buscar">
+                            </div>#}
+                        </div> {#navbar-collapse#}
+                    </div> {#navbar container#}
+                </nav>
+            </div> {#container#}
+            {#</div> #}{#animated bounce#}
+        {% elseif app.user.userEstadp == 1 %}
+            {#<div class="animated bounce">#}
+            <div class="container">
+
+                <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+                    <div class="container">
+                        <a class="navbar navbar-brand" href="{{ path('index') }}">
+                            <span class="icon-home fsz1"></span> Inicio
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#Barra"
+                                aria-controls="Barra" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="Barra">
+                            <ul class="navbar-nav mr-auto"> {#ml-auto text-center#}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('cliente') }}">
+                                        <span class="icon-users fsz1" aria-hidden="true"></span><strong>
+                                            Clientes</strong></a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('cobrador') }}">
+                                <span class="icon-money-dollars fsz3"
+                                      aria-hidden="true"></span><strong> Cobradores</strong></a>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="icon-prestamistas fsz3" aria-hidden="true"></span>
+                                        <strong> Préstamos</strong></a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="{{ path('crear_prestamo') }}"><span
+                                                    class="icon-coin-dollar fsz1"></span>
+                                            <strong> Crear Préstamo</strong></a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('ruta') }}">
+                                        <span class="icon-location fsz1" aria-hidden="true"></span>
+                                        <strong> Rutas</strong>
+                                    </a>
+                                </li>
+
+                                {# <li class="nav-item">
+                                 <a class="nav-link" href="#">
+                                     <span class="icon-report fsz1"
+                                   aria-hidden="true"></span><strong> Reportes</strong></a>
+                                 </li>#}
+                            </ul>
+
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <div class="input-group">
+                                        <input id="infoCliente" class="form-control" type="text"
+                                               placeholder="Buscar clientes: Id, Nombre" onkeypress="runScript(event)">
+                                        <span class="input-group-btn">
+                                    <button id="buscarclientes" class="btn btn-secondary" type="button" value="Buscar">
+                                        <span class="icon-search fsz1"></span>
+                                    </button>
+                                </span>
+                                    </div>
+                                </li>
+
+                                {#<li class="dividerVertical">
+                                </li>#}
+
+                                <li class="nav-item dropdown marginLastNavbarItem">
+                                    <a class="nav-link dropdown-toggle" href="#" id="logoutDropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="icon-exit fsz1" aria-hidden="true"></span>
+                                        <strong></strong></a>
+                                    <div class="dropdown-menu" aria-labelledby="logoutDropdown">
+                                        <a class="dropdown-item" href="#"><span class="icon-money-coins fsz1"></span>
+                                            <strong>{{ app.user.username }}</strong>
+                                            <br>
+                                            <small>Últ Sesión: <br/>
+                                                {{ app.user.lastLogin|localizeddate('long','none', 'es_CO', null, "d 'de' MMMM 'de' Y"  ) }}
+                                                <br/>
+                                                Rol: Administrador
+                                            </small>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('Salir') }}"></span>
+                                            <strong>Salir</strong></a>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                            {#<div class="form-inline my-2 my-lg-0">
+                                <input id="infoCliente" class="form-control mr-sm-2" type="text" placeholder="Buscar clientes: Id, Nombre" onkeypress="runScript(event)">
+                                <input id="buscarclientes" class="btn btn-outline-success my-2 my-sm-0" type="button" value="Buscar">
+                            </div>#}
+                        </div> {#navbar-collapse#}
+                    </div> {#navbar container#}
+                </nav>
+            </div> {#container#}
+            {#</div> #}{#animated bounce#}
+        {% elseif app.user.userEstadp == 2 %}
+
+            <div class="container">
+
+                <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+                    <div class="container">
+                        <a class="navbar navbar-brand" href="{{ path('index') }}">
+                            <span class="icon-home fsz1"></span> Inicio
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#Barra"
+                                aria-controls="Barra" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="Barra">
+                            <ul class="navbar-nav mr-auto"> {#ml-auto text-center#}
+                                <li>
+                                    <a class="nav-link" href="#" id="navbarDropdownMenuLink"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <strong> Bienvenido {{ app.user.username }} </strong></a>
+                                </li>
+                            </ul>
+
+                            <ul class="navbar-nav ml-auto">
+
+
+                                {#<li class="dividerVertical">
+                                </li>#}
+
+                                <li class="nav-item">
+                                    <div class="input-group">
+                                        <input id="infoCliente" class="form-control" type="text"
+                                               placeholder="Buscar clientes: Id, Nombre" onkeypress="runScript(event)">
+                                        <span class="input-group-btn">
+                                    <button id="buscarclientes" class="btn btn-secondary" type="button" value="Buscar">
+                                        <span class="icon-search fsz1"></span>
+                                    </button>
+                                </span>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown marginLastNavbarItem">
+                                    <a class="nav-link dropdown-toggle" href="#" id="logoutDropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="icon-exit fsz1" aria-hidden="true"></span>
+                                        <strong></strong></a>
+                                    <div class="dropdown-menu" aria-labelledby="logoutDropdown">
+                                        <a class="dropdown-item" href="#"><span class="icon-money-coins fsz1"></span>
+                                            <strong>{{ app.user.username }}</strong>
+                                            <br>
+                                            <small>Últ Sesión: <br/>
+                                                {{ app.user.lastLogin|localizeddate('long','none', 'es_CO', null, "d 'de' MMMM 'de' Y"  ) }}
+                                                <br/>
+                                                Rol: Cobrador
+                                            </small>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('Salir') }}"></span>
+                                            <strong>Salir</strong></a>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                            {#<div class="form-inline my-2 my-lg-0">
+                                <input id="infoCliente" class="form-control mr-sm-2" type="text" placeholder="Buscar clientes: Id, Nombre" onkeypress="runScript(event)">
+                                <input id="buscarclientes" class="btn btn-outline-success my-2 my-sm-0" type="button" value="Buscar">
+                            </div>#}
+                        </div> {#navbar-collapse#}
+                    </div> {#navbar container#}
+                </nav>
+            </div> {#container#}
+        {% endif %}
+
+    {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+
+        {#<div class="animated bounce">#}
+        <div class="container">
+
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+                <div class="container">
+                    <a class="navbar navbar-brand" href="{{ path('index') }}">
+                        <span class="icon-home fsz1" aria-hidden="true"></span>
+                        Inicio
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#Barra"
+                            aria-controls="Barra" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    {#<div class="collapse navbar-collapse" id="Barra">#}
+                    {#<ul class="navbar-nav ml-auto"> #}{#alinear a la derecha item navbar#}
+                    {#<ul class="navbar-nav mr-auto">#}
+                    {#<li class="nav-item">#}
+                    {#<a class="nav-link" href="{{ path('Ingresar') }}">#}
+                    {#<span class="icon-enter fsz1" aria-hidden="true"></span><strong>#}
+                    {#Ingresar</strong></a>#}
+                    {#</li>#}
+                    {#</ul>#}
+                    {#</div> #}{#navbar collapse#}
+                </div> {#navbar container#}
+            </nav>
+        </div> {#container#}
+        {#</div> #}{#animated bounce#}
+    {% endif %}
+    {% block cuerpo %}
+    {% endblock %}
+    {#</div>#}
+
+    <div class="modal fade" id="modalDevelopers" tabindex="-1" role="dialog" aria-labelledby="modalDevelopersTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><h4 class="font-weight-light text-dark">&copy;
+                            Fenix - Desarrolladores</h4></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-dark">
+                    <!-- <div class="container"> -->
+                    <div class="bg-light border border-light rounded">
+                        <div class="form-group row">
+                            <p class="col-sm-12 font-weight-bold">Diego Fernando Bastidas R.</p>
+                        </div>
+                        <div class="form-group row">
+                            <p class="col-sm-2 font-weight-bold">Rol:</p>
+                            <p class="col-sm-10">Desarrollador de Software Web</p>
+                        </div>
+                        <div class="form-group row">
+                            <p class="col-sm-2 font-weight-bold">Correo:</p>
+                            <p class="col-sm-10">
+                                <small class="font-weight-bold text-secondary">
+                                    diego.fernando.bastidas@correounivalle.edu.co
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="bg-light border border-light rounded">
+                        <div class="form-group row">
+                            <p class="col-sm-12 font-weight-bold">Juan Sebastian Jaramillo R.</p>
+                        </div>
+                        <div class="form-group row">
+                            <p class="col-sm-2 font-weight-bold">Rol:</p>
+                            <p class="col-sm-10">Diseñador de Interfaz Gráfica de Usuario</p>
+                        </div>
+                        <div class="form-group row">
+                            <p class="col-sm-2 font-weight-bold">Correo:</p>
+                            <p class="col-sm-10">
+                                <small class="font-weight-bold text-secondary">sebasj0895@gmail.com</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<footer class="text-muted">
+    <div class="container text-center">
+        <p>&copy; 2018 Fenix |
+            <button class="btn btn-link" data-toggle="modal" data-target="#modalDevelopers">Desarrolladores</button>
+        </p>
+    </div>
+</footer>
+
+{% block Scripts %}
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/lightbox-plus-jquery.min.js') }}"></script>
+    <script src="{{ asset('js/angular.min.js') }}"></script>
+    <script src="{{ asset('js/alertify.min.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ asset('js/base.js') }}"></script>
+{% endblock %}
+</body>
+</html>
