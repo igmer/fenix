@@ -290,102 +290,38 @@ class PrestamoController extends Controller
         $cuota = $em->getRepository(PagoCuota::class)->find($id_cuota);
         $prestamo = $em->getRepository(Prestamo::class)->findOneBy(array('url' => $prestamo_id));
         $currentDate = new \DateTime();
-
-        $PHPWord = new PHPWord();
-
-        $section = $PHPWord->addSection();
-
-        $fontStyleName = 'oneUserDefinedStyle';
-        $PHPWord->addFontStyle(
-            $fontStyleName,
-            array('name' => 'Tahoma', 'size' => 10, 'color' => '1B2232', 'bold' => true,'align'=>'both')
-        );
-        $PHPWord->addParagraphStyle('p2Style', array('align'=>'center', 'spaceAfter'=>100));
-
-
-        $text = "Inversiones Fenix";
-        $PHPWord->addFontStyle('r2Style', array('bold'=>false, 'italic'=>false, 'size'=>12));
-        $PHPWord->addParagraphStyle('p2Style', array('align'=>'both', 'spaceAfter'=>100));
-        $section->addText($text, 'r2Style', 'p2Style');
-        $section->addText('Recibo de pago');
-        $PHPWord->addFontStyle('r2Style', array('bold'=>false, 'italic'=>false, 'size'=>12));
-        $PHPWord->addParagraphStyle('p2Style', array('align'=>'both', 'spaceAfter'=>100));
-        $section->addText(
-            'Recibo generado el día '
-            .$currentDate->format('Y-m-d') . ' como constancia de pago por parte del cliente '
-            . $prestamo->getCliente()->getNombre() . ' identificado con el número de cedula: ' . $prestamo->getCliente()->getCedula()
-            . ' de la cuota #' . ($numero + 1) . ' Cuota id: COT-' . $cuota->getId()
-        );
-        $section->addTextBreak(1);
-        $section->addText('Valor del préstamo: '.$prestamo->getValorPrestamo(),$fontStyleName);
-        $section->addText('Valor de esta cuota: '.$cuota->getSaldo(),$fontStyleName);
-        $section->addText('Estado de esta cuota: '.$cuota->getEstado(),$fontStyleName );
-        $section->addText('Cobrado por '.$prestamo->getCobrador()->getNombre());
-//
-//        $section->addTextBreak(2);
-//
-//        $section->addText('A continuación, se describen los detalles del préstamo');
-//        $table = $section->addTable();
-//        $table->addRow();
-//        $table->addCell(4000)->addText("Cobrador");
-//        $table->addCell(3000)->addText("Total Pagado:");
-//        $table->addCell(2000)->addText("Fecha de realización:");
-//        $table->addRow();
-//        $table->addCell(4000)->addText($prestamo->getCobrador()->getNombre());
-//        $table->addCell(3000)->addText($prestamo->getPagado());
-//        $table->addCell(2000)->addText($prestamo->getFechaPrestamo()->format('Y-m-d'));
-//        $section->addText('Valor del préstamo: '.$prestamo->getValorPrestamo(),$fontStyleName);
-//        $section->addText('Valor de esta cuota: '.$cuota->getSaldo(),$fontStyleName);
-//        $section->addText('Estado de esta cuota: '.$cuota->getEstado(),$fontStyleName );
-//        $section->addTextBreak(2);
-//
-//
-//
-//
-//        $section->addTextBreak(6);
-//
-//
-//        $tableTwo = $section->addTable();
-//        $tableTwo->addRow();
-//        $tableTwo->addCell(6000)->addText("Cobrador");
-//        $tableTwo->addCell(6000)->addText("Cliente");
-//
-//
-//        $tableTwo->addRow();
-//        $tableTwo->addCell(6000)->addText("");
-//        $tableTwo->addCell(6000)->addText("");
-//
-//
-//        $tableTwo->addRow();
-//        $tableTwo->addCell(6000)->addText("");
-//        $tableTwo->addCell(6000)->addText("");
-//        $tableTwo->addRow();
-//        $tableTwo->addCell(6000)->addText("____________________________________");
-//        $tableTwo->addCell(6000)->addText("____________________________________");
-//
-//
-//        $section->addTextBreak(4);
-//        $text2 = "© 2018 Proyecto Fenix. Republica Dominicana.";
-//        $PHPWord->addFontStyle('r2Style', array('bold'=>false, 'italic'=>false, 'size'=>12));
-//        $PHPWord->addParagraphStyle('p2Style', array('align'=>'both', 'spaceAfter'=>100));
-//        $section->addText($text2, 'r2Style', 'p2Style');
-//
-//        $text3 = "Todos los derechos reservados.";
-//        $PHPWord->addFontStyle('r2Style', array('bold'=>false, 'italic'=>false, 'size'=>12));
-//        $PHPWord->addParagraphStyle('p2Style', array('align'=>'both', 'spaceAfter'=>100));
-//        $section->addText($text3, 'r2Style', 'p2Style');
+        $section0=('Valor del prestamo: '.$prestamo->getValorPrestamo());
+        $section1=('Valor de esta cuota: '.$cuota->getSaldo());
+        $section2=('Estado de esta cuota: '.$cuota->getEstado() );
         $idcuota = $cuota->getId();
         $Cedula =$prestamo->getCliente()->getCedula();
-        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($PHPWord, 'Word2007');
-        $filename="COT-$idcuota $Cedula.docx";
-        $objWriter->save($filename);
-        //$path = $filename;
-        $content = file_get_contents($filename);
-        $response = new Response();
-        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
-        $response->setContent($content);
-        return $response;
+         $html = $this->renderView('prestamos/reporte.html.twig',array(
+             'section0'=>$section0,
+             'section1'=>$section1,
+             'id_cuota'=>$id_cuota,
+             'cliente'=> $prestamo->getCliente()->getNombre(),
+             'numero'=>$numero+1,
+             'fecha'=> $currentDate->format('Y-m-d'),
+             'section2'=>$section2,
+
+
+         ));
+
+        $filename = sprintf('test-%s.pdf', date('Y-m-d'));
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html,Array(
+               'page-height' => 120 ,
+               'page-width'  => 65,
+            )),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
+
+        
     }
 
 

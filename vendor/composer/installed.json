@@ -1084,6 +1084,53 @@
         ]
     },
     {
+        "name": "h4cc/wkhtmltopdf-amd64",
+        "version": "0.12.4",
+        "version_normalized": "0.12.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/h4cc/wkhtmltopdf-amd64.git",
+            "reference": "4e2ab2d032a5d7fbe2a741de8b10b8989523c95b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/h4cc/wkhtmltopdf-amd64/zipball/4e2ab2d032a5d7fbe2a741de8b10b8989523c95b",
+            "reference": "4e2ab2d032a5d7fbe2a741de8b10b8989523c95b",
+            "shasum": ""
+        },
+        "time": "2018-01-15T06:57:33+00:00",
+        "bin": [
+            "bin/wkhtmltopdf-amd64"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "h4cc\\WKHTMLToPDF\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL Version 3"
+        ],
+        "authors": [
+            {
+                "name": "Julius Beckmann",
+                "email": "github@h4cc.de"
+            }
+        ],
+        "description": "Convert html to pdf using webkit (qtwebkit). Static linked linux binary for amd64 systems.",
+        "homepage": "http://wkhtmltopdf.org/",
+        "keywords": [
+            "binary",
+            "convert",
+            "pdf",
+            "snapshot",
+            "thumbnail",
+            "wkhtmltopdf"
+        ]
+    },
+    {
         "name": "jdorn/sql-formatter",
         "version": "v1.2.17",
         "version_normalized": "1.2.17.0",
@@ -3845,6 +3892,66 @@
         ]
     },
     {
+        "name": "symfony/polyfill-ctype",
+        "version": "v1.12.0",
+        "version_normalized": "1.12.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/polyfill-ctype.git",
+            "reference": "550ebaac289296ce228a706d0867afc34687e3f4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/550ebaac289296ce228a706d0867afc34687e3f4",
+            "reference": "550ebaac289296ce228a706d0867afc34687e3f4",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "suggest": {
+            "ext-ctype": "For best performance"
+        },
+        "time": "2019-08-06T08:03:45+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.12-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Polyfill\\Ctype\\": ""
+            },
+            "files": [
+                "bootstrap.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Gert de Pagter",
+                "email": "BackEndTea@gmail.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony polyfill for ctype functions",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "compatibility",
+            "ctype",
+            "polyfill",
+            "portable"
+        ]
+    },
+    {
         "name": "symfony/polyfill-intl-icu",
         "version": "v1.6.0",
         "version_normalized": "1.6.0.0",
@@ -5190,6 +5297,67 @@
         "homepage": "https://symfony.com"
     },
     {
+        "name": "symfony/web-server-bundle",
+        "version": "v3.4.31",
+        "version_normalized": "3.4.31.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/web-server-bundle.git",
+            "reference": "32359e92b96bebdffbfb077f39de94447e87e8c9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/web-server-bundle/zipball/32359e92b96bebdffbfb077f39de94447e87e8c9",
+            "reference": "32359e92b96bebdffbfb077f39de94447e87e8c9",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.5.9|>=7.0.8",
+            "symfony/config": "~3.4|~4.0",
+            "symfony/console": "~3.4|~4.0",
+            "symfony/dependency-injection": "~3.4|~4.0",
+            "symfony/http-kernel": "~3.3|~4.0",
+            "symfony/polyfill-ctype": "~1.8",
+            "symfony/process": "~3.3.14|^3.4.2|^4.0.2"
+        },
+        "suggest": {
+            "symfony/expression-language": "For using the filter option of the log server.",
+            "symfony/monolog-bridge": "For using the log server."
+        },
+        "time": "2019-08-20T13:31:17+00:00",
+        "type": "symfony-bundle",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Bundle\\WebServerBundle\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony WebServerBundle",
+        "homepage": "https://symfony.com"
+    },
+    {
         "name": "symfony/yaml",
         "version": "v3.4.2",
         "version_normalized": "3.4.2.0",
@@ -5620,126 +5788,5 @@
             "stdlib",
             "zf2"
         ]
-    },
-    {
-        "name": "symfony/polyfill-ctype",
-        "version": "v1.12.0",
-        "version_normalized": "1.12.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-ctype.git",
-            "reference": "550ebaac289296ce228a706d0867afc34687e3f4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/550ebaac289296ce228a706d0867afc34687e3f4",
-            "reference": "550ebaac289296ce228a706d0867afc34687e3f4",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "suggest": {
-            "ext-ctype": "For best performance"
-        },
-        "time": "2019-08-06T08:03:45+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.12-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Ctype\\": ""
-            },
-            "files": [
-                "bootstrap.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Gert de Pagter",
-                "email": "BackEndTea@gmail.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony polyfill for ctype functions",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "ctype",
-            "polyfill",
-            "portable"
-        ]
-    },
-    {
-        "name": "symfony/web-server-bundle",
-        "version": "v3.4.31",
-        "version_normalized": "3.4.31.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/web-server-bundle.git",
-            "reference": "32359e92b96bebdffbfb077f39de94447e87e8c9"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/web-server-bundle/zipball/32359e92b96bebdffbfb077f39de94447e87e8c9",
-            "reference": "32359e92b96bebdffbfb077f39de94447e87e8c9",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^5.5.9|>=7.0.8",
-            "symfony/config": "~3.4|~4.0",
-            "symfony/console": "~3.4|~4.0",
-            "symfony/dependency-injection": "~3.4|~4.0",
-            "symfony/http-kernel": "~3.3|~4.0",
-            "symfony/polyfill-ctype": "~1.8",
-            "symfony/process": "~3.3.14|^3.4.2|^4.0.2"
-        },
-        "suggest": {
-            "symfony/expression-language": "For using the filter option of the log server.",
-            "symfony/monolog-bridge": "For using the log server."
-        },
-        "time": "2019-08-20T13:31:17+00:00",
-        "type": "symfony-bundle",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Bundle\\WebServerBundle\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony WebServerBundle",
-        "homepage": "https://symfony.com"
     }
 ]

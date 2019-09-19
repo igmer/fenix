@@ -18,6 +18,10 @@ class ComposerStaticInit10e04e4aa69f0ee23a5d4ae927eca63c
     );
 
     public static $prefixLengthsPsr4 = array (
+        'h' => 
+        array (
+            'h4cc\\WKHTMLToPDF\\' => 17,
+        ),
         'Z' => 
         array (
             'Zend\\Stdlib\\' => 12,
@@ -119,6 +123,10 @@ class ComposerStaticInit10e04e4aa69f0ee23a5d4ae927eca63c
     );
 
     public static $prefixDirsPsr4 = array (
+        'h4cc\\WKHTMLToPDF\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/h4cc/wkhtmltopdf-amd64',
+        ),
         'Zend\\Stdlib\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-stdlib/src',

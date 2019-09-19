@@ -26,6 +26,7 @@ final class Versions
   'doctrine/orm' => 'v2.6.0@374e7ace49d864dad8cddbc55346447c8a6a2083',
   'friendsofsymfony/jsrouting-bundle' => '2.1.1@18112980f96407cbcec30c3b9cd543054b309c84',
   'friendsofsymfony/user-bundle' => 'v2.0.2@2fc8a023d7ab482321cf7ec810ed49eab40eb50f',
+  'h4cc/wkhtmltopdf-amd64' => '0.12.4@4e2ab2d032a5d7fbe2a741de8b10b8989523c95b',
   'jdorn/sql-formatter' => 'v1.2.17@64990d96e0959dff8e059dfcdc1af130728d92bc',
   'knplabs/knp-components' => '1.3.5@a03bbd87ecf9e56db6f7533db2c63d6da6cd5f33',
   'knplabs/knp-paginator-bundle' => 'v2.7.1@754129b52cd2bcc86025b4ef0de2d7ace73abac4',
@@ -101,7 +102,7 @@ final class Versions
   'symfony/stopwatch' => 'v3.4.6@eb17cfa072cab26537ac37e9c4ece6c0361369af',
   'symfony/web-profiler-bundle' => 'v3.4.6@355591d4749c9bbc03036e264886a9b8bdd1f45f',
   'symfony/web-server-bundle' => 'v3.4.31@32359e92b96bebdffbfb077f39de94447e87e8c9',
-  '__root__' => 'dev-master@24575aa0b24309c8cbd026c02ad462226636ef71',
+  '__root__' => 'dev-master@692fd89ea779531d8e4b35d2e052a1dfdfa523ce',
 );
 
     private function __construct()
