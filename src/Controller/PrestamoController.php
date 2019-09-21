@@ -133,6 +133,80 @@ class PrestamoController extends Controller
         }
         return $this->render('cliente/cliente_prestamos_view.html.twig', array('cliente' => $cliente, 'form' => $form->createView()));
     }
+    
+    /**
+     * @Route("/crear_prestamo_cliente_interes/{ruta_cliente}", options = { "expose" = true }, name="crear_prestamo_cliente_interes")
+     */
+    public function crear_prestamo_cliente_interes($ruta_cliente, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cliente = $em->getRepository(Cliente::class)->findOneBy(array('ruta' => $ruta_cliente));
+        $prestamo = new Prestamo();
+        $usuario = $this->getUser();
+        $cobradores = $em->getRepository(Cobrador::class)->findBy(array('user' => $usuario));
+        $rutas = $em->getRepository(Ruta::class)->findBy(array('user' => $usuario));
+        $form = $this->createFormBuilder($prestamo)
+            ->add('valor_prestamo', IntegerType::class)
+            ->add('modo_pago', ChoiceType::class,
+                array('choices' => array(
+                    'Diario' => 'Diario'
+                   
+                )))
+            ->add('dias_pago', IntegerType::class)
+            ->add('tasa_interes', IntegerType::class)
+            ->add('total_cuotas', IntegerType::class)
+            ->add('precio_cuota', TextType::class)
+            ->add('total', TextType::class)
+            ->add('cobrador', EntityType::class, array(
+                'class' => Cobrador::class,
+                'choice_label' => 'nombre',
+                'choices' => $cobradores
+            ))
+            ->add('ruta', EntityType::class, array(
+                'class' => Ruta::class,
+                'choice_label' => 'zona_cobro',
+                'choices' => $rutas
+            ))
+            ->add('EfectuarPrestamo', SubmitType::class)
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $url = $this->random_str(16);
+            $prestamo->setEstado('Activo');
+            $prestamo->setCliente($cliente);
+            $prestamo->setUrl("prestamo" . $url);
+            $prestamo->setPagado(0);
+            $prestamo->setAlive(0);
+            $fecha = new \DateTime();
+            $fecha_actual = new \DateTime();
+            $prestamo->setFechaPrestamo($fecha_actual);
+            for ($i = 0; $i < $prestamo->getTotalCuotas(); $i++) {
+                switch ($form->get('modo_pago')->getData()) {
+                    case 'Diario':
+                        $fecha->modify('+1 day');
+                        break;
+                    case 'Semanal':
+                        $fecha->modify('+7 day');
+                        break;
+                    case 'Quincenal':
+                        $fecha->modify('+15 day');
+                        break;
+                    case 'Mensual':
+                        $fecha->modify('+31 day');
+                        break;
+                }
+                $pagocuota = new PagoCuota($prestamo->getPrecioCuota(), $fecha, "Activo", $prestamo);
+                $em->persist($pagocuota);
+                $em->flush();
+            }
+            $em->persist($prestamo);
+            $flush = $em->flush();
+            if ($flush == null) {
+                return $this->redirectToRoute('cliente_detail', array('ruta' => $cliente->getRuta()));
+            }
+        }
+        return $this->render('cliente/cliente_prestamos_view_interes.html.twig', array('cliente' => $cliente, 'form' => $form->createView()));
+    }
 
 
     /**
