@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block Scripts %}
+{{parent()}}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+{% endblock Scripts %}
+{% block body %}
+    {{ parent() }}
+    <h2 class="text-center mb-4 font-weight-light Titulo">Estados de cuenta</h2>
+    <div class="container bg-light">
+        
+    </div>
+
+
+    <div class="container">
+        <div class="table-responsive text-center">
+            <table class="table table-bordered table-hover table-light" id="example">
+                <thead class="thead-light">
+                <th>Nombre Cliente</th>
+                <th>Monto</th>
+                <th>Estado</th>
+                <th>Modo Pago</th>
+                <th>Pagado</th>
+
+
+                </thead>
+                <tbody>
+                
+                </tbody>
+            </table>
+            <div class="navigation">
+               
+            </div>
+        </div>
+    </div>
+{% endblock %}

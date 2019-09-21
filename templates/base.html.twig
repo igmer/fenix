@@ -86,6 +86,20 @@
                                     </a>
 
                                 </li>
+                                 <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="icon-prestamistas fsz3" aria-hidden="true"></span>
+                                        <strong> Cuadrar</strong></a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="{{ path('cuadrar') }}"><span
+                                                    class="icon-coin-dollar fsz1"></span>
+                                            <strong>Estado cuentas</strong></a>
+                                            {# <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('cobros') }}"></span>
+                                            <strong>Reporte Cobros </strong></a>#}
+                                    </div>
+                                </li>
 
                                 {# <li class="nav-item">
                                  <a class="nav-link" href="#">
@@ -421,6 +435,7 @@
 
 {% block Scripts %}
     <script src="{{ asset('js/jquery.min.js') }}"></script>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
             integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
             crossorigin="anonymous"></script>
@@ -435,6 +450,8 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script src="{{ asset('js/base.js') }}"></script>
+     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
 {% endblock %}
 </body>
 </html>

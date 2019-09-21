@@ -29,6 +29,31 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class PrestamoController extends Controller
 {
+    
+     /**
+     * @Route("/cuadrar/", name="cuadrar")
+     */
+
+    public function cuadrar(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $prestamos = $em->getRepository(Prestamo::class)->findAll();
+        
+        return $this->render('administrador/cuadrar.html.twig',array('prestamos'=>$prestamos));
+
+    }
+    /**
+     * @Route("/cobros/", name="cobros")
+     */
+
+    public function cobros(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $prestamos = $em->getRepository(Prestamo::class)->findAll();
+        
+        return $this->render('administrador/cobros.html.twig',array('prestamos'=>$prestamos));
+
+    }
     /**
      * @Route("/prestamo/{prestamo_ruta}", options={"expose"=true}, name="prestamo_detail")
      */
@@ -470,7 +495,7 @@ class PrestamoController extends Controller
 //
 //
 //        return new Response($pdf->Output(), 200, array(
-//            'Content-Type' => 'application/pdf'));
+//           crear_prestamo_interes 'Content-Type' => 'application/pdf'));
 //    }
 
     function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
