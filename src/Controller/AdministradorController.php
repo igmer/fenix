@@ -63,7 +63,7 @@ class AdministradorController extends Controller
         $user->setEnabled(1);
         $user->setPlainPassword($password);
         $user->addRole('ROLE_USER');
-        $user->setUserEstadp(User::USUARIO);
+        //$user->setUserEstadp(User::USUARIO);
         $userManager->updateUser($user);
         return true;
     }
