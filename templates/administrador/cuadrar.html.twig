@@ -9,7 +9,7 @@ $(document).ready(function() {
 {% endblock Scripts %}
 {% block body %}
     {{ parent() }}
-    <h2 class="text-center mb-4 font-weight-light Titulo">Estados de cuenta</h2>
+    <h2 class="text-center mb-4 font-weight-light Titulo">Estados de cuenta detalle por cuotas</h2>
     <div class="container bg-light">
         
     </div>
@@ -23,8 +23,8 @@ $(document).ready(function() {
                 <th>Monto</th>
                 <th>Estado</th>
                 <th>Modo Pago</th>
-                <th>Total Pagado</th>
-                <th>Fecha Prestamo</th>
+                <th>Estado Cuota</th>
+                <th>Fecha Pago</th>
 
 
 
@@ -32,13 +32,13 @@ $(document).ready(function() {
                 <tbody>
                 {% for p in prestamos %}
                     <tr>
-                        <td>{{ p.cliente.Nombre }}</td>
+                        <td>{{ p.prestamo.cliente.Nombre }}</td>
                         
-                        <td>{{ p.valorPrestamo }}</td>
-                        <td>{{ p.Estado }}</td>
-                        <td>{{ p.modoPago }}</td>
-                        <td>{{ p.pagado }}</td>
-                        <td>{{ p.fechaPrestamo | date("d/m/Y") }}</td>
+                        <td>{{ p.prestamo.valorPrestamo }}</td>
+                        <td>{{ p.prestamo.Estado }}</td>
+                        <td>{{ p.prestamo.modoPago }}</td>
+                        <td>{{ p.estado }}</td>
+                        <td>{{ p.fechaPago | date("d/m/Y") }}</td>
 
 
 

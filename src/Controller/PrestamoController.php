@@ -37,7 +37,7 @@ class PrestamoController extends Controller
     public function cuadrar(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $prestamos = $em->getRepository(Prestamo::class)->findAll();
+        $prestamos = $em->getRepository(PagoCuota::class)->findAll();
         
         return $this->render('administrador/cuadrar.html.twig',array('prestamos'=>$prestamos));
 
