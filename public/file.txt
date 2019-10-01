@@ -1,0 +1,8 @@
+Grupo Anillo
+Cliente:cliente
+Cuota:1
+Valor del prestamo: 1000
+Valor de esta cuota: 400
+Estado de esta cuota: Saldado
+2019-10-01
+

@@ -385,6 +385,7 @@ class PrestamoController extends Controller
      *  @Route("crear_informe_cuota/{id_cuota}/{prestamo_id}/{numero}", name="crear_informe_cuota")
      */
     function crear_informe($id_cuota, $prestamo_id, $numero){
+
         $em = $this->getDoctrine()->getManager();
         $cuota = $em->getRepository(PagoCuota::class)->find($id_cuota);
         $prestamo = $em->getRepository(Prestamo::class)->findOneBy(array('url' => $prestamo_id));
@@ -403,22 +404,19 @@ class PrestamoController extends Controller
              'fecha'=> $currentDate->format('Y-m-d'),
              'section2'=>$section2,
 
+         ));        
+          $handle = fopen($Cedula."-".$idcuota."recibo.txt", "w");
+            fwrite($handle, $html);
+            fclose($handle);
 
-         ));
-
-        $filename = sprintf('test-%s.pdf', date('Y-m-d'));
-
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html,Array(
-               'page-height' => 120 ,
-               'page-width'  => 65,
-            )),
-            200,
-            [
-                'Content-Type'        => 'application/pdf',
-                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
-            ]
-        );
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename='.basename($Cedula."-".$idcuota."recibo.txt"));
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($Cedula."-".$idcuota."recibo.txt"));
+            readfile($Cedula."-".$idcuota."recibo.txt");
+    exit();
 
         
     }
